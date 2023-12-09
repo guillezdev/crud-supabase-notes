@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { supabase } from '../supabase/supabase';
-import { Link } from 'react-router-dom'
+import supabase from '../supabase/supabase';
+import { Link } from 'react-router-dom';
 
-export default function SignUp() {
+export default function LogIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -18,29 +18,22 @@ export default function SignUp() {
     e.preventDefault();
 
     try {
-      const { data, error } = await supabase.auth.signUp({
-        email,
-        password,
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: email,
+        password: password,
       });
-
-      if (error) {
-        console.error('Error al registrar:', error.message);
-      } else {
-        console.log('Usuario registrado:', data);
-      }
     } catch (error) {
-      console.error('Error al registrar:', error.message);
+      console.error('Error al registrar:', error);
     }
   };
 
   return (
     <div>
-
       <form
         className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 mx-5 lg:max-w-lg lg:m-auto lg:mt-40 mt-40"
         onSubmit={handleSubmit}
       >
-        <h1 className='text-3xl mb-6 text-blue-500'>Sign UP</h1>
+        <h1 className="text-3xl mb-6 text-blue-500">Log in</h1>
         <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
@@ -81,9 +74,10 @@ export default function SignUp() {
             Enviar
           </button>
 
-          <Link to={'/login'} className='underline text-blue-700'>Ya tienes cuenta?</Link>
+          <Link to={'/'} className="underline text-blue-700">
+            Crear cuenta?
+          </Link>
         </div>
       </form>
-    </div>
-  );
-}
+    </div>);
+} 
