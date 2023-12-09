@@ -1,10 +1,12 @@
 import './App.css'
+import SignUp from './pages/SignUp'
 
 function App() {
 
   return (
     <>
-    Mis notas
+
+      <SignUp />
     </>
   )
 }
