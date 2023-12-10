@@ -1,10 +1,10 @@
-import supabase from '../supabase/supabase'
-
 import React, { useState } from 'react';
+import { useNotes } from "../context/NoteContext";
 
 const NoteForm = () => {
   const [noteTitle, setNoteTitle] = useState('');
   const [noteDescription, setNoteDescription] = useState('');
+  const { setNotes } = useNotes();
 
   const handleTitleChange = (e) => {
     setNoteTitle(e.target.value);
@@ -16,25 +16,11 @@ const NoteForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const userid = await supabase.auth.getUser();
-      console.log(userid.data.user.id);
-      const { data, error } = await supabase
-        .from('notes')
-        .insert([
-          {
-            name: noteTitle,
-            description: noteDescription,
-            user_id: userid.data.user.id
-          },
-        ])
-        .select()
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
+
+    setNotes(noteTitle, noteDescription);
     setNoteTitle('')
     setNoteDescription('')
+
   };
 
   return (
@@ -49,6 +35,7 @@ const NoteForm = () => {
           value={noteTitle}
           onChange={handleTitleChange}
           placeholder="Ingrese el título de la nota"
+          required
           className="w-full p-2 border rounded"
         />
       </div>
@@ -62,12 +49,13 @@ const NoteForm = () => {
           value={noteDescription}
           onChange={handleDescriptionChange}
           placeholder="Ingrese la descripción de la nota"
+          required
           className="w-full p-2 border rounded"
         ></textarea>
       </div>
 
       <button type="submit" className="bg-blue-500 text-white p-2 rounded">
-        Agregar Nota
+        Add Note
       </button>
     </form>
   );

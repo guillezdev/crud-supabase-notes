@@ -6,20 +6,19 @@ import Notes from './pages/Notes'
 import NotFound from './pages/NotFound'
 import LogIn from './pages/LogIn'
 import supabase from './supabase/supabase'
-
+import { useNotes } from "./context/NoteContext";
 
 function App() {
   const navigate = useNavigate();
-
   useEffect(() => {
-
     supabase.auth.onAuthStateChange((event, session) => {
       if (!session) {
         navigate('/Login')
       }
       else
-        navigate('/Notes')
+        navigate('/Notes');
     })
+
   }, [])
 
   return (

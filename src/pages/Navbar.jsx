@@ -31,9 +31,7 @@ const Navbar = () => {
   }
   return (
     <nav className="bg-gray-800 p-4 flex justify-between items-center">
-      <div className="flex items-center">
-        <span className="text-white text-lg font-bold">My Notes</span>
-      </div>
+   
 
       <div className="text-white">
         <span className="text-lg">{user || 'User@email.com'}</span>
