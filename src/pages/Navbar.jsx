@@ -30,17 +30,17 @@ const Navbar = () => {
     }
   }
   return (
-    <nav className="bg-gray-800 p-4 flex justify-between items-center">
-   
+    <nav className="border p-4 flex justify-between items-center bg-slate-100">
 
-      <div className="text-white">
-        <span className="text-lg">{user || 'User@email.com'}</span>
+
+      <div className="">
+        <span className="text-lg border p-3 rounded bg-blue-100 border-l-8 border-l-blue-500">{user || 'User@email.com'}</span>
       </div>
 
       <div>
         <button
           onClick={handleSingOut}
-          className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded"
+          className="bg-red-500 hover:bg-red-600 duration-150 text-white py-2 px-4 rounded"
         >
           Sign Out
         </button>

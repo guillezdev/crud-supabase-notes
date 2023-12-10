@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNotes } from "../context/NoteContext";
+import { Toaster, toast } from 'sonner'
 
 const NoteForm = () => {
   const [noteTitle, setNoteTitle] = useState('');
@@ -20,7 +21,7 @@ const NoteForm = () => {
     setNotes(noteTitle, noteDescription);
     setNoteTitle('')
     setNoteDescription('')
-
+    toast.success('Note has been created')
   };
 
   return (
@@ -54,9 +55,10 @@ const NoteForm = () => {
         ></textarea>
       </div>
 
-      <button type="submit" className="bg-blue-500 text-white p-2 rounded">
+      <button type="submit" className="bg-blue-500 hover:bg-blue-600 duration-150 text-white p-2 rounded">
         Add Note
       </button>
+      <Toaster richColors />
     </form>
   );
 };

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import supabase from '../supabase/supabase';
 import { Link } from 'react-router-dom';
 
+import { Toaster, toast } from 'sonner'
+
 export default function LogIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -22,6 +24,9 @@ export default function LogIn() {
         email: email,
         password: password,
       });
+      if (!!error) {
+        toast.warning('Unregistered account or incorrect password')
+      }
     } catch (error) {
       console.error('Error al registrar:', error);
     }
@@ -46,6 +51,7 @@ export default function LogIn() {
             id="email"
             type="email"
             placeholder="Correo Electrónico"
+            required
             value={email}
             onChange={handleEmailChange}
           />
@@ -62,6 +68,7 @@ export default function LogIn() {
             id="password"
             type="password"
             placeholder="Contraseña"
+            required
             value={password}
             onChange={handlePasswordChange}
           />
@@ -78,6 +85,7 @@ export default function LogIn() {
             Crear cuenta?
           </Link>
         </div>
+        <Toaster richColors />
       </form>
     </div>);
 } 

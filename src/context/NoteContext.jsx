@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from 'react'
+import { Toaster, toast } from 'sonner'
 import { supabase } from '../supabase/supabase'
 export const NoteContext = createContext();
 
@@ -27,17 +28,17 @@ export function NoteContextProvider({ children }) {
         .select()
       setMyNotes([...myNotes, ...data]);
       getNotes();
+
     } catch (error) {
       console.log(error);
+      toast.error('An error occurred trying to create a note')
     }
   }
 
   const getNotes = async () => {
     try {
       const userid = await supabase.auth.getUser();
-      console.log(userid.data.user.id);
-      const { data, error } = await supabase.from('notes').select().eq('user_id', userid.data.user.id)
-      console.log(data);
+      const { data, error } = await supabase.from('notes').select().eq('user_id', userid.data.user.id).order('id', { ascending: false })
       setMyNotes(data);
     } catch (error) {
       console.log(error);
@@ -45,9 +46,25 @@ export function NoteContextProvider({ children }) {
 
   }
 
+  const deleteNote = async (id) => {
+    try {
+      const { error } = await supabase
+        .from('notes')
+        .delete()
+        .eq('id', id)
+      if (error) toast.error('An error occurred while deleting the note')
+      else toast.info('Note has been removed')
+    } catch (error) {
+      error
+    } finally {
+      getNotes();
+    }
+  }
+  
   return (
-    <NoteContext.Provider value={{ myNotes, setNotes, getNotes }}>
+    <NoteContext.Provider value={{ myNotes, setNotes, getNotes, deleteNote }}>
       {children}
+      <Toaster richColors />
     </NoteContext.Provider>
   )
 }
