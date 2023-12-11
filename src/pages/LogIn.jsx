@@ -85,7 +85,6 @@ export default function LogIn() {
             Crear cuenta?
           </Link>
         </div>
-        <Toaster richColors />
       </form>
     </div>);
 } 

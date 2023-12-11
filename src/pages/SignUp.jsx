@@ -93,7 +93,6 @@ export default function SignUp() {
           <Link to={'/login'} className='underline text-blue-700'>Ya tienes cuenta?</Link>
         </div>
       </form>
-      <Toaster richColors expand={true} />
     </div>
   );
 }

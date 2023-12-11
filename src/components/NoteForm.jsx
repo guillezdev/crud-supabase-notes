@@ -58,7 +58,6 @@ const NoteForm = () => {
       <button type="submit" className="bg-blue-500 hover:bg-blue-600 duration-150 text-white p-2 rounded">
         Add Note
       </button>
-      <Toaster richColors />
     </form>
   );
 };
